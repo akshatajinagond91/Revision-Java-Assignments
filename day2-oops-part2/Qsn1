@@ -1,0 +1,40 @@
+
+can we have non abstract class inside an interface ?
+
+ans===
+
+
+public interface  MouseListener {
+  void mouseClicked(MouseEvent e);
+  void mouseEntered(MouseEvent e);
+  void mouseExited(MouseEvent e);
+  void mousePressed(MouseEvent e);
+  void mouseReleased(MouseEvent e);
+}
+Somewhere in your app you may want to respond to mouse events, so using an anonymous inner class you could do something like this.
+
+component.addMouseListener(new MouseListener() {
+  public void mouseClicked(MouseEvent e){/*implementation goes here...*/}
+  public void mouseEntered(MouseEvent e){/*implementation goes here...*/}
+  public void mouseExited(MouseEvent e){/*implementation goes here...*/}
+  public void mousePressed(MouseEvent e){/*implementation goes here...*/}
+  public void mouseReleased(MouseEvent e){/*implementation goes here...*/}
+});
+
+
+What you've done here is created a new class (without name, hence anonymous) that implements the MouseListener interface. You have not, as 
+suggested above, created a non-abstract method on an interface.
+
+
+
+
+After Java 8, you can define non-abstract methods inside an interface using "default" keyword as fallows.
+
+public interface MyIntface {
+
+    void abstract_method(int a, String b);
+
+    default void nonabstract_method(){
+        System.out.println("do something");
+    }
+}

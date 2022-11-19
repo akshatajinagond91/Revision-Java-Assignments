@@ -1,0 +1,26 @@
+Ques 3: Observe the following code and answer
+
+// Shape.java
+public class Shape {
+protected void display() {
+System.out.println("Display-base");
+}
+}
+// Circle.java
+public class Circle extends Shape { <
+< access - modifier > void display() {
+System.out.println("Display-derived");
+}
+}
+
+
+→ Write which modifier can be used in above written code
+snippet..
+a. Only protected can be used.
+B. public and protected both can be used.
+C. public, protected, and private can be used.
+d. Only public can be used.
+
+
+
+ans===

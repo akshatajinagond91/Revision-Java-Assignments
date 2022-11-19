@@ -1,0 +1,35 @@
+ 
+ 2] Ques 2: Implement 2 interfaces in a single class having
+same default methods and observe the catch there?
+ 
+ 
+ 
+ 
+ 
+ 
+ public interface I1
+{
+    default String getGreeting() {
+        return "Good Morning!";
+    }
+}
+
+public interface I2
+{
+    default String getGreeting() {
+        return "Good Afternoon!";
+    }
+}
+
+
+
+//If I want to implement both of them, This implementation will be used==
+
+
+public class C1 implements I1, I2
+{
+    public static void main(String[] args)
+    {
+        System.out.println(new C1().getGreeting());
+    }
+}
