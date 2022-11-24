@@ -1,0 +1,8 @@
+
+Why there are unchecked exceptions are available in java if not complain by
+compiler. Why this segregation of checked and unchecked exceptioins
+
+A checked exception is caught at compile time whereas a runtime or unchecked exception 
+is, as it states, at runtime. A checked exception must be handled either by re-throwing 
+or with a try catch block, whereas an unchecked isn't required to be 
+handled

@@ -1,0 +1,9 @@
+Can you throw another exception from a Catch block. Write an example if yes??
+
+An exception is an “unwanted or unexpected event”, which occurs during the execution of 
+the program i.e, at run-time, that disrupts the normal flow of the program’s instructions. 
+When an exception occurs, the execution of the program gets terminated. 
+occur due to several reasons like a Network connection problem, Bad input 
+provided by a user, Opening a non-existing file in your program, etc 
+
+
