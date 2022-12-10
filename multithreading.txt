@@ -1,0 +1,429 @@
+9. CAN YOU GIVE AN EXAMPLE FOR EXECUTORSERVICE?
+ANS==The Java ExecutorService is the interface which allows us to execute tasks on threads asynchronously. The Java ExecutorService interface is present in the java.util.
+concurrent package. The ExecutorService helps in maintaining a pool of threads and assigns them tasks. It also provides the facility to queue up tasks until there is a free 
+thread available if the number of tasks is more than the threads available.
+
+example:
+
+ublic class ExecutorServiceExample {  
+  
+    public static void main(String[] args) {  
+        ExecutorService executorService = Executors.newFixedThreadPool(10);  
+        executorService.execute(new Runnable() {  
+              
+            @Override  
+            public void run() {  
+                System.out.println("ExecutorService");  
+                  
+            }  
+        });  
+        executorService.shutdown();  
+    }  
+  
+}  
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+10.EXPLAIN DIFFERENT WAYS OF CREATING EXECUTOR SERVICES
+
+ans==Example of assigning a task to ExecutorService using execute() method
+
+The Java ExecutorService's execute() method takes in a runnable object and performs its task asynchronously. After making the call to execute method, we call the shutdown method, which blocks any other task to queue up in the executorService.
+
+public class ExecutorServiceExample {  
+  
+    public static void main(String[] args) {  
+        ExecutorService executorService = Executors.newSingleThreadExecutor();  
+        executorService.execute(new Runnable() {  
+              
+            @Override  
+            public void run() {  
+                System.out.println("ExecutorService");  
+                  
+            }  
+        });  
+        executorService.shutdown();  
+    }  
+}   
+Output:
+
+ExecutorService
+Example of assigning a task to ExecutorService using submit()
+
+The submit() method takes in a runnable object and returns a Future object. This object is later on used to check the status of Runnable whether it has completed execution or not.
+
+public class ExecutorServiceExample {  
+  
+    public static void main(String[] args) {  
+        ExecutorService executorService = Executors.newSingleThreadExecutor();  
+        executorService.submit(new Runnable() {  
+              
+            @Override  
+            public void run() {  
+                System.out.println("ExecutorService");  
+                  
+            }  
+        });  
+    }  
+}  
+Example of assigning a task to ExecutorService using invokeAny() method
+
+The invokeAny() method takes a collection of Callablle objects or objects of classes implementing Callable. This method returns the future object of the callable object which gets 
+successfully executed first.
+
+
+public class ExecutorServiceExample {  
+  
+    public static void main(String[] args) throws InterruptedException, ExecutionException {  
+        ExecutorService executorService = Executors.newSingleThreadExecutor();  
+        Set<Callable<String>> callables = new HashSet<Callable<String>>();  
+        callables.add(new Callable<String>() {  
+            public String call() throws Exception {  
+                return "Task 1";  
+            }  
+        });  
+        callables.add(new Callable<String>() {  
+            public String call() throws Exception {  
+                return "Task 2";  
+            }  
+        });  
+        callables.add(new Callable<String>() {  
+            public String call() throws Exception {  
+                return "Task 3";  
+            }  
+        });  
+  
+        String result = executorService.invokeAny(callables);  
+  
+        System.out.println("result = " + result);  
+  
+        executorService.shutdown();  
+    }  
+}  
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+11.HOW DO YOU CHECK WHETHER AN EXECUTIONSERVICE TASK EXECUTED
+SUCCESSFULLY?
+
+ans=  Submit Runnable
+The Java ExecutorService submit(Runnable) method also takes a Runnable implementation, but returns a Future object. This Future object can be used to check if the Runnable has 
+finished executing.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+12.WHAT IS CALLABLE? HOW DO YOU EXECUTE A CALLABLE FROM
+EXECUTIONSERVICE?
+
+ans==>The Callable() method of Executors class returns a Callable object that, when called, runs the given task and returns null.
+
+import java.util.ArrayList;    
+import java.util.Date;    
+import java.util.List;    
+import java.util.concurrent.Callable;    
+import java.util.concurrent.ExecutionException;    
+import java.util.concurrent.ExecutorService;    
+import java.util.concurrent.Executors;    
+import java.util.concurrent.Future;    
+    
+public class ExecutorCallableExample1 implements Callable<String> {    
+    
+    @Override    
+    public String call() throws Exception {    
+        Thread.sleep(1000);    
+        return Thread.currentThread().getName();    
+    }    
+        
+    public static void main(String args[]){    
+    
+        ExecutorService executor = Executors.newFixedThreadPool(20);    
+        List<Future<String>> list = new ArrayList<Future<String>>();    
+        Callable<String> callable = new ExecutorCallableExample1();    
+    
+        for(int i=0; i< 10; i++){    
+            Future<String> ftr = executor.submit(callable);    
+            list.add(ftr);    
+        }    
+        for(Future<String> fut : list){    
+            try {    
+                System.out.println(new Date()+ "::"+fut.get());    
+    
+            } catch (InterruptedException | ExecutionException e) {    
+                e.printStackTrace();    
+            }    
+        }    
+        executor.shutdown();    
+    }    
+    
+}   
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+13. WHAT IS SYNCHRONIZATION OF THREADS?
+
+ans==Synchronization in Java is the capability to control the access of multiple threads to any shared resource.
+
+Java Synchronization is better option where we want to allow only one thread to access the shared resource.
+
+Why use Synchronization?
+The synchronization is mainly used to
+
+To prevent thread interference.
+To prevent consistency problem.
+Types of Synchronization
+There are two types of synchronization
+Play Videox
+
+Process Synchronization
+Thread Synchronization
+Here, we will discuss only thread synchronization.
+
+Thread Synchronization
+There are two types of thread synchronization mutual exclusive and inter-thread communication.
+
+Mutual Exclusive
+Synchronized method.
+Synchronized block.
+Static synchronization.
+Cooperation (Inter-thread communication in java)
+Mutual Exclusive
+Mutual Exclusive helps keep threads from interfering with one another while sharing data. It can be achieved by using the following three ways:
+
+By Using Synchronized Method
+By Using Synchronized Block
+By Using Static Synchronization
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+14.CAN YOU GIVE AN EXAMPLE OF A SYNCHRONIZED BLOCK?
+
+ans==
+
+class Table  
+{      
+ void printTable(int n){    
+   synchronized(this){//synchronized block    
+     for(int i=1;i<=5;i++){    
+      System.out.println(n*i);    
+      try{    
+       Thread.sleep(400);    
+      }catch(Exception e){System.out.println(e);}    
+     }    
+   }    
+ }//end of the method    
+}    
+    
+class MyThread1 extends Thread{    
+Table t;    
+MyThread1(Table t){    
+this.t=t;    
+}    
+public void run(){    
+t.printTable(5);    
+}    
+    
+}    
+class MyThread2 extends Thread{    
+Table t;    
+MyThread2(Table t){    
+this.t=t;    
+}    
+public void run(){    
+t.printTable(100);    
+}    
+}    
+    
+public class TestSynchronizedBlock1{    
+public static void main(String args[]){    
+Table obj = new Table();//only one object    
+MyThread1 t1=new MyThread1(obj);    
+MyThread2 t2=new MyThread2(obj);    
+t1.start();    
+t2.start();    
+}    
+}    
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+15.CAN A STATIC METHOD BE SYNCHRONIZED?
+
+ans==Static Synchronization
+The Synchronized method may lose its behavior of getting an ordered output. When there are more objects of a class, It acquires only the lock of the particular instance. To maintain the 
+Synchronized behavior, we need a class-level lock rather than an instance-level lock which can be achieved by Static Synchronization.
+
+Static Synchronized method is also a method of synchronizing a method in java such that no two threads can act simultaneously static upon the synchronized method. The only difference 
+is by using Static Synchronized. We are attaining a class-level lock such that only one thread will operate on the method. The Thread will acquire a class level lock of a java class, 
+such that only one thread can act on the static synchronized method.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+16. WHAT IS THE USE OF JOIN METHOD IN THREADS?
+
+ans==java.lang.Thread class provides the join() method which allows one thread to wait until another thread completes its execution. If t is a Thread object whose thread is currently 
+executing, then t.join() will make sure that t is terminated before the next instruction is executed by the program.
+If there are multiple threads calling the join() methods that means overloading on join allows the programmer to specify a waiting period. However, as with sleep, join is dependent on 
+the OS for timing, so you should not assume that join will wait exactly as long as you specify.
+There are three overloaded join functions.
+
+join(): It will put the current thread on wait until the thread on which it is called is dead. If thread is interrupted then it will throw InterruptedException.
+Syntax:
+public final void join()
+join(long millis) :It will put the current thread on wait until the thread on which it is called is dead or wait for specified time (milliseconds).
+Syntax:
+public final synchronized void join(long millis)
+join(long millis, int nanos): It will put the current thread on wait until the thread on which it is called is dead or wait for specified time (milliseconds + nanos).
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+17.DESCRIBE A FEW OTHER IMPORTANT METHODS IN THREADS?
+
+ans==
+
+start() and run()
+Invoking the start() method on a thread object executes the run() method as a new thread of execution.
+When you call the start method for a thread object, it will call a native code method that causes the OS to
+initiate another thread from which the run() method executes. We can call start method only once on a
+thread or it will throw IllegalStateException.
+You can also call the run method directly, but if you call the run() method directly, it would simply operate
+like any other method and will run as part of the same thread that called it.
+final isAlive()
+The final isAlive() method returns true if the thread is still running or the Thread has not terminated.
+final join()
+The final join() method waits until thread on which it is called is terminated. For example, thread1.join()
+suspends the current thread until thread1 dies.
+You can also pass a long value to join method to specify the number of milliseconds you are prepared to
+wait for the death of a thread. For example, thread1.join(1000) wait upto 1 second for thread1 to die, and
+then continue execution.
+The join() method can throw an InterruptedException if the current thread is interrupted by another
+thread.
+yield()
+Calling yield() will move the current thread from running to runnable, to give other threads a chance to
+execute. However the scheduler may still bring the same thread back to running. A better alternative
+according to Effective Java by Joshua Bloch is to use Thread.sleep(1) instead of Thread.yield().
+Wait, notify and notifyAll
+Java.lang.Object provides three methods – notify(), notifyAll() and wait () – to improve the efficiency
+communication between threads. You will need to understand the synchronization process in Java to
+understand the communication using wait, notify and notifyAll.
+ obj.wait() makes a thread wait on an object (obj) until it receives a notification from a notify() or notifyAll()
+on the same object.
+ obj.notify() sends a notification to any one waiting thread on ab object (obj) that the object lock is
+available.
+ obj.notifyAll() sends notification to all waiting threads on an object (obj) that the object lock is available.
+You should call the above methods inside a synchronized block, or you will get
+IllegalMonitorStateException. The IllegalMonitorStateException is thrown to indicate that a thread has
+attempted to wait on an object's monitor or to notify other threads waiting on an object's monitor without
+owning the specified monitor.
+The wait, notify and notifyAll methods should be used with caution for thread communication; if not used
+properly, it may result in deadlock.
+interrupt(), isInterrupted() and interrupted()
+Thread’s stop() method is deprecated and should not be used. Instead, you should use the interrupt
+mechanism.
+A thread can signal another thread that it should stop executing by calling the interrupt() method for that
+thread. This doesn’t stop the thread, but sets a flag in the thread. This flag must be checked in the run()
+method to have any effect and the thread should then terminate itself.
+The isInterrupted() method returns true if the interrupted flag has been set. This method does not reset
+the flag, but another static method interrupted() tests the flag for the currently executing thread and if it
+has been interrupted, it clears the interrupted flag in the current thread object and returns true.
+When an InterruptedException is thrown, the flag that registers the interrupt is cleared, so a subsequent
+call to isInterrupted() or interrupted() returns false.
+static currentThread()
+The static currentThread() method returns a reference to the thread in which it is called.
+static sleep()
+This static sleep() method causes the thread to suspend execution for a given time. The sleep method
+has two overloaded versions:
+ static void sleep (long milliseconds) throws InterruptedException
+ static void sleep (long milliseconds, int nanoseconds) throws InterruptedException
+S
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+18.WHAT IS A DEADLOCK?
+
+ans==Deadlock in Java is a part of multithreading. Deadlock can occur in a situation when a thread is waiting for an object lock, that is acquired by another thread and second thread is 
+waiting for an object lock that is acquired by first thread. Since, both threads are waiting for each other to release the lock, the condition is called deadlock.
+
+ex..
+
+public class TestDeadlockExample1 {  
+  public static void main(String[] args) {  
+    final String resource1 = "ratan jaiswal";  
+    final String resource2 = "vimal jaiswal";  
+    // t1 tries to lock resource1 then resource2  
+    Thread t1 = new Thread() {  
+      public void run() {  
+          synchronized (resource1) {  
+           System.out.println("Thread 1: locked resource 1");  
+  
+           try { Thread.sleep(100);} catch (Exception e) {}  
+  
+           synchronized (resource2) {  
+            System.out.println("Thread 1: locked resource 2");  
+           }  
+         }  
+      }  
+    };  
+  
+    // t2 tries to lock resource2 then resource1  
+    Thread t2 = new Thread() {  
+      public void run() {  
+        synchronized (resource2) {  
+          System.out.println("Thread 2: locked resource 2");  
+  
+          try { Thread.sleep(100);} catch (Exception e) {}  
+  
+          synchronized (resource1) {  
+            System.out.println("Thread 2: locked resource 1");  
+          }  
+        }  
+      }  
+    };  
+  
+      
+    t1.start();  
+    t2.start();  
+  }  
+}       
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+19.. WHAT ARE THE IMPORTANT METHODS IN JAVA FOR INTER-THREAD
+COMMUNICATION?
+
+ans==Cooperation (Inter-thread communication) is a mechanism in which a thread is paused running in its critical section and another thread is allowed to enter (or lock) in the same 
+critical section to be executed.It is implemented by following methods of Object class: wait() notify() notifyAll()
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+20.WHAT IS THE USE OF WAIT METHOD?
+
+ans=The wait() method is defined in the Object class which is the super most class in Java. This method tells the calling thread (Current thread) to give up the lock and go to 
+sleep until some other thread enters the same monitor and calls notify() or notifyAll(). It is a final method, so we can’t override it.
+Unlike the sleep() method, in the wait() method, the thread goes into waiting state and it won’t come back automatically until we call the notify() or notifyAll().
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+21.WHAT IS THE USE OF NOTIFY METHOD?
+
+ans==The notify() method is defined in the Object class, which is Java’s top-level class. It’s used to wake up only one thread that’s waiting for an object, and that thread then begins 
+execution. The thread class notify() method is used to wake up a single thread. If multiple threads are waiting for notification, and we use the notify() method, only one thread will
+ receive the notification, and the others will have to wait for more. This method does not return any value.
+
+It is used with the wait() method, in order to communicate between the threads as a thread that goes into waiting for state by wait() method, will be there until any other thread 
+calls either notify() or notifyAll() method.
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+22. WHAT IS THE USE OF NOTIFYALL METHOD?
+
+ans==The notifyAll() method of thread class is used to wake up all threads. This method gives the notification to all waiting threads of a particular object.
+
+If we use notifyAll() method and multiple threads are waiting for the notification then all the threads got the notification but execution of threads will be performed one by one because 
+thread requires a lock and only one lock is available for one object.

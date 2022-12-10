@@ -1,0 +1,15 @@
+ BufferedReader  :- 
+ 1)  It is used to read characters from any type of character input stream (String, Files, etc.)
+ 2) Uses Buffer internally to read characters from
+ 3) It is Faster
+ 4) Much more efficient for reading files
+ 5)BufferedReader can be used to read a single character at a time as well as a line at a time
+ 
+ 
+     FileReader :----- 
+     
+ 1) It can be used only for reading files
+ 2) Doesn’t use Buffer. Directly reads from the file by accessing the hard drive.
+ 3) it is Slower
+ 4) Less efficient 
+ 5) It can read only one character at a time, can not read lines    
