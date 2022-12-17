@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 30, 2018 3:48:21 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.pojo.Missingrecord" table="missingrecord" catalog="firsystem">
+        <id name="missingNo" type="java.lang.Integer">
+            <column name="missing_no" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="registration" class="com.pojo.Registration" fetch="select">
+            <column name="user_no" />
+        </many-to-one>
+        <property name="missingthing" type="string">
+            <column name="missingthing" length="200" />
+        </property>
+        <property name="missingthingaddress" type="string">
+            <column name="missingthingaddress" length="200" />
+        </property>
+        <property name="missingthingcity" type="string">
+            <column name="missingthingcity" length="200" />
+        </property>
+        <property name="information" type="string">
+            <column name="information" length="200" />
+        </property>
+        <set name="statuses" table="status" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="m_no" />
+            </key>
+            <one-to-many class="com.pojo.Status" />
+        </set>
+    </class>
+</hibernate-mapping>

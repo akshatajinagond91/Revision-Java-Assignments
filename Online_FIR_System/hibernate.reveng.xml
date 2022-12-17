@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+  <table-filter match-catalog="firsystem" match-name="criminaldetail"/>
+  <table-filter match-catalog="firsystem" match-name="firrecord"/>
+  <table-filter match-catalog="firsystem" match-name="missingrecord"/>
+  <table-filter match-catalog="firsystem" match-name="registration"/>
+  <table-filter match-catalog="firsystem" match-name="role"/>
+  <table-filter match-catalog="firsystem" match-name="status"/>
+  <table-filter match-catalog="firsystem" match-name="theftrecord"/>
+</hibernate-reverse-engineering>

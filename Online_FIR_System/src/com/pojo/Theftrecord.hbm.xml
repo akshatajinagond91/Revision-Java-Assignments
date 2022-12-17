@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 30, 2018 3:48:21 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.pojo.Theftrecord" table="theftrecord" catalog="firsystem">
+        <id name="theftNo" type="java.lang.Integer">
+            <column name="theft_no" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="registration" class="com.pojo.Registration" fetch="select">
+            <column name="user_no" />
+        </many-to-one>
+        <property name="theftthing" type="string">
+            <column name="theftthing" length="200" />
+        </property>
+        <property name="theftthingaddress" type="string">
+            <column name="theftthingaddress" length="200" />
+        </property>
+        <property name="theftthingcity" type="string">
+            <column name="theftthingcity" length="200" />
+        </property>
+        <property name="information" type="string">
+            <column name="information" length="200" />
+        </property>
+        <set name="statuses" table="status" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="t_no" />
+            </key>
+            <one-to-many class="com.pojo.Status" />
+        </set>
+    </class>
+</hibernate-mapping>
