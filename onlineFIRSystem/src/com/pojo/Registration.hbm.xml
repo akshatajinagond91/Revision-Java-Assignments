@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 30, 2018 3:48:21 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.pojo.Registration" table="registration" catalog="firsystem">
+        <id name="regNo" type="java.lang.Integer">
+            <column name="reg_no" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="role" class="com.pojo.Role" fetch="select">
+            <column name="roltype" />
+        </many-to-one>
+        <property name="stationname" type="string">
+            <column name="stationname" length="200" />
+        </property>
+        <property name="fname" type="string">
+            <column name="fname" length="200" />
+        </property>
+        <property name="lname" type="string">
+            <column name="lname" length="200" />
+        </property>
+        <property name="address" type="string">
+            <column name="address" length="200" />
+        </property>
+        <property name="city" type="string">
+            <column name="city" length="200" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="200" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="200" />
+        </property>
+        <property name="mobileno" type="string">
+            <column name="mobileno" length="200" />
+        </property>
+        <set name="theftrecords" table="theftrecord" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_no" />
+            </key>
+            <one-to-many class="com.pojo.Theftrecord" />
+        </set>
+        <set name="firrecords" table="firrecord" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_no" />
+            </key>
+            <one-to-many class="com.pojo.Firrecord" />
+        </set>
+        <set name="missingrecords" table="missingrecord" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_no" />
+            </key>
+            <one-to-many class="com.pojo.Missingrecord" />
+        </set>
+    </class>
+</hibernate-mapping>
